@@ -5,7 +5,6 @@ import { AppLogger } from './common/logger/app.logger.service';
 const cluster = require('cluster');
 
 const numCPUs = os.cpus().length;
-
 @Injectable()
 export class ClusterService {
   static readonly logger = new AppLogger(ClusterService.name);
@@ -18,9 +17,7 @@ export class ClusterService {
       }
 
       cluster.on('exit', (worker, code, signal) => {
-        this.logger.error(
-          `worker ${worker.process.pid} died, code ${code}, signal ${signal} `,
-        );
+        this.logger.error(`worker is ${worker.process.pid} died ,code:${code}, signal:${signal}`);
       });
     } else {
       this.logger.log(`SUB SERVER (${process.pid}) IS RUNNING `);
