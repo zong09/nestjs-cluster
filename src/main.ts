@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as pack from '../package.json';
 import { AppModule } from './app.module';
 import { ClusterService } from './cluster.service';
-import { ConfigKey } from './common/enum/config.key';
+import { ConfigKey } from './common/enums/config.key';
 import { AppLogger } from './common/logger/app.logger.service';
 
 function createSwagger(app: INestApplication, config: ConfigService, version: string, logApp: AppLogger) {
@@ -34,6 +34,7 @@ async function bootstrap() {
     createSwagger(app, configService, version, appLogger);
   }
 
+  app.setGlobalPrefix(configService.get(ConfigKey.ApiDefaultPrefix));
   await app.listen(+configService.get(ConfigKey.Port));
   appLogger.logCluster(configService.get(ConfigKey.SwaggerTitle) + ' listening on port ' + configService.get(ConfigKey.Port));
 }

@@ -6,4 +6,6 @@ export enum ConfigKey {
   SwaggerPrefix = 'SWAGGER_PREFIX',
   SwaggerEnable = 'SWAGGER_ENABLE',
   ClusterMode = 'CLUSTER_ENABLE',
+  JwtSecret = 'JWT_SECRET',
+  JwtExpiredSec = 'JWT_EXPIRED_SEC',
 }

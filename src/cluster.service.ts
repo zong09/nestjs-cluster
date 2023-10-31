@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as process from 'node:process';
 import * as os from 'os';
-import { ConfigKey } from './common/enum/config.key';
+import { ConfigKey } from './common/enums/config.key';
 import { AppLogger } from './common/logger/app.logger.service';
 const cluster = require('cluster');
 
