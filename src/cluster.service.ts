@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as process from 'node:process';
 import * as os from 'os';
+import { ConfigKey } from './common/enum/config.key';
 import { AppLogger } from './common/logger/app.logger.service';
 const cluster = require('cluster');
 
-const numCPUs = os.cpus().length;
+let numCPUs = os.cpus().length;
 @Injectable()
 export class ClusterService {
   static readonly logger = new AppLogger(ClusterService.name);
+  static readonly config = new ConfigService();
   static buildCluster(callback: () => void): void {
+    if (this.config.get(ConfigKey.ClusterMode) === 'false') numCPUs = 1;
     if (cluster.isMaster) {
       this.logger.log(`NUMBER CPU (${numCPUs}) `);
       this.logger.log(`MAIN SERVER (${process.pid}) IS RUNNING `);
