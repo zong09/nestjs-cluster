@@ -24,7 +24,7 @@ export class ClusterService {
         this.logger.error(`worker is ${worker.process.pid} died ,code:${code}, signal:${signal}`);
       });
     } else {
-      this.logger.log(`SUB SERVER (${process.pid}) IS RUNNING `);
+      this.logger.log(`NODE (${process.pid}) IS RUNNING `);
       callback();
     }
   }
