@@ -26,6 +26,7 @@ async function bootstrap() {
   const appLogger = new AppLogger('Main');
   const version = pack.version || '';
   const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
     logger: appLogger,
   });
   const configService = app.get(ConfigService);
@@ -33,7 +34,6 @@ async function bootstrap() {
     appLogger.logCluster('Initial Swagger');
     createSwagger(app, configService, version, appLogger);
   }
-
   app.setGlobalPrefix(configService.get(ConfigKey.ApiDefaultPrefix));
   await app.listen(+configService.get(ConfigKey.Port));
   appLogger.logCluster(configService.get(ConfigKey.SwaggerTitle) + ' listening on port ' + configService.get(ConfigKey.Port));

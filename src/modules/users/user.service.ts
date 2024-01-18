@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { AppLogger } from '../../common/logger/app.logger.service';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -18,7 +19,12 @@ export class UserService {
     },
   ];
 
+  constructor(private logger: AppLogger) {
+    this.logger.setContext(UserService.name);
+  }
+
   async findOne(username: string): Promise<User | undefined> {
+    this.logger.logCluster(`Find user : ${username}`);
     return this.users.find((user) => user.username === username);
   }
 }

@@ -4,8 +4,11 @@ import { AppLogger } from './common/logger/app.logger.service';
 
 @Injectable()
 export class AppService {
-  private readonly logger = new AppLogger(AppService.name);
   private readonly versionApp = pack.version || '';
+
+  constructor(private logger: AppLogger) {
+    this.logger.setContext(AppService.name);
+  }
 
   healthCheck(): any {
     const response = {

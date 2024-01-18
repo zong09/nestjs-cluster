@@ -1,0 +1,15 @@
+version: '3.1'
+networks:
+  samplenetwork:
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data/db/mysql:/var/lib/mysql
+    networks:
+      - samplenetwork
